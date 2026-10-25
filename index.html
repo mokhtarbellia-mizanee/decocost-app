@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#12251f">
+<title>DecoCost | حاسبة التشطيب</title>
+<style>
+:root {
+  --bg:#0d1714; --panel:#172721; --gold:#d8b477;
+  --text:#f6f2e9; --muted:#b7c2bb; --line:#35483f;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+font-family:Arial,sans-serif;line-height:1.7}
+header{padding:25px 16px;text-align:center;
+background:linear-gradient(135deg,#203c30,#0d1714)}
+h1{margin:0;color:var(--gold);font-size:30px}
+header p{margin:5px;color:var(--muted)}
+main{max-width:850px;margin:22px auto;padding:0 14px}
+.card{background:var(--panel);border:1px solid var(--line);
+border-radius:16px;padding:20px;margin-bottom:16px}
+h2{font-size:19px;margin:0 0 15px;color:var(--gold)}
+label{display:block;margin:12px 0 5px}
+input,select{width:100%;padding:12px;border-radius:9px;
+border:1px solid var(--line);background:#0d1914;color:white;
+font-size:16px}
+input[type=range]{padding:0;accent-color:var(--gold)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.option{display:flex;align-items:center;gap:10px;
+padding:10px;border:1px solid var(--line);border-radius:9px;
+margin:8px 0}
+.option input{width:auto;accent-color:var(--gold)}
+.option label{margin:0;flex:1}
+.total{font-size:30px;color:var(--gold);font-weight:bold;
+overflow-wrap:anywhere}
+.muted{color:var(--muted);font-size:14px}
+button{width:100%;padding:14px;border:0;border-radius:10px;
+font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
+.primary{background:var(--gold);color:#17231c}
+.secondary{background:#284638;color:white}
+footer{text-align:center;color:var(--muted);padding:20px}
+@media(max-width:520px){.row{grid-template-columns:1fr}.card{padding:15px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>DecoCost</h1>
+  <p id="subtitle">حاسبة تكلفة التشطيب والتصميم الداخلي</p>
+  <div class="row" style="max-width:400px;margin:15px auto 0">
+    <select id="lang" aria-label="Language">
+      <option value="ar">العربية</option>
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+    </select>
+    <select id="currency" aria-label="Currency">
+      <option value="DZD">DZD — دينار جزائري</option>
+      <option value="EUR">EUR — Euro</option>
+      <option value="USD">USD — US Dollar</option>
+      <option value="GBP">GBP — Pound</option>
+      <option value="SAR">SAR — Riyal</option>
+      <option value="AED">AED — Dirham</option>
+      <option value="MAD">MAD — Dirham marocain</option>
+      <option value="TND">TND — Dinar tunisien</option>
+      <option value="CAD">CAD — Canadian dollar</option>
+      <option value="AUD">AUD — Australian dollar</option>
+      <option value="CHF">CHF — Swiss franc</option>
+      <option value="TRY">TRY — Turkish lira</option>
+    </select>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2 id="projectTitle">1. معلومات المشروع</h2>
+    <label for="client" id="clientLabel">اسم العميل</label>
+    <input id="client" placeholder="اسم العميل">
+    <label for="phone" id="phoneLabel">رقم الهاتف</label>
+    <input id="phone" type="tel" placeholder="رقم الهاتف">
+    <label for="area" id="areaLabel">مساحة الشقة</label>
+    <div class="total"><span id="areaNum">100</span> m²</div>
+    <input id="area" type="range" min="50" max="400" value="100">
+    <div class="row muted"><span>50 m²</span><span style="text-align:end">400 m²</span></div>
+  </section>
+
+  <section class="card">
+    <h2 id="packageTitle">2. باقة التشطيب</h2>
+    <label class="option">
+      <input type="radio" name="plan" value="3000" checked>
+      <span id="economy">اقتصادية — 3000 / م²</span>
+    </label>
+    <label class="option">
+      <input type="radio" name="plan" value="4500">
+      <span id="luxury">فاخرة — 4500 / م²</span>
+    </label>
+    <label class="option">
+      <input type="radio" name="plan" value="6500">
+      <span id="vip">VIP — 6500 / م²</span>
+    </label>
+  </section>
+
+  <section class="card">
+    <h2 id="extrasTitle">3. خدمات إضافية</h2>
+    <div class="option">
+      <input type="checkbox" id="design">
+      <label for="design" id="designLabel">تصميم ثلاثي الأبعاد (+10,000)</label>
+    </div>
+    <div class="option">
+      <input type="checkbox" id="smart">
+      <label for="smart" id="smartLabel">منزل ذكي (+25,000)</label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 id="resultTitle">4. تقدير التكلفة</h2>
+    <p class="muted" id="baseLabel">تكلفة التشطيب</p>
+    <div id="base" class="total">300,000 DZD</div>
+    <p class="muted" id="extrasLabel">الخدمات الإضافية</p>
+    <div id="extras">0 DZD</div>
+    <hr style="border-color:var(--line)">
+    <p id="grandLabel">المجموع التقديري</p>
+    <div id="grand" class="total">300,000 DZD</div>
+    <p><span id="durationLabel">مدة التنفيذ التقديرية:</span>
+      <strong id="duration">30 يومًا</strong></p>
+    <p class="muted" id="disclaimer">
+      هذا تقدير أولي. العملة المختارة تغيّر طريقة العرض فقط، ولا تحوّل الأسعار.
+    </p>
+    <button class="primary" id="whatsapp">إرسال عرض السعر عبر WhatsApp</button>
+    <button class="secondary" id="print">طباعة / حفظ PDF</button>
+  </section>
+</main>
+<footer>DecoCost · <span id="footerText">حاسبة التشطيب والتصميم الداخلي</span></footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const phoneNumber = "201000000000"; // استبدله برقم الشركة الدولي
+const words = {
+ ar:{
+  subtitle:"حاسبة تكلفة التشطيب والتصميم الداخلي",
+  projectTitle:"1. معلومات المشروع",clientLabel:"اسم العميل",
+  phoneLabel:"رقم الهاتف",areaLabel:"مساحة الشقة",
+  packageTitle:"2. باقة التشطيب",economy:"اقتصادية",
+  luxury:"فاخرة",vip:"VIP",extrasTitle:"3. خدمات إضافية",
+  designLabel:"تصميم ثلاثي الأبعاد",smartLabel:"منزل ذكي",
+  resultTitle:"4. تقدير التكلفة",baseLabel:"تكلفة التشطيب",
+  extrasLabel:"الخدمات الإضافية",grandLabel:"المجموع التقديري",
+  durationLabel:"مدة التنفيذ التقديرية:",days:"يومًا",
+  disclaimer:"هذا تقدير أولي. العملة المختارة تغيّر طريقة العرض فقط، ولا تحوّل الأسعار.",
+  whatsapp:"إرسال عرض السعر عبر WhatsApp",print:"طباعة / حفظ PDF",
+  footerText:"حاسبة التشطيب والتصميم الداخلي",clientPlaceholder:"اسم العميل",
+  phonePlaceholder:"رقم الهاتف",estimate:"عرض سعر DecoCost",
+  area:"المساحة",plan:"الباقة",total:"المجموع",currency:"العملة",
+  required:"يرجى إدخال اسم العميل ورقم هاتفه.",
+  waClient:"العميل",base:"التشطيب",extras:"الإضافات"
+ },
+ fr:{
+  subtitle:"Calculateur de finition et design intérieur",
+  projectTitle:"1. Informations du projet",clientLabel:"Nom du client",
+  phoneLabel:"Téléphone",areaLabel:"Surface de l'appartement",
+  packageTitle:"2. Forfait de finition",economy:"Économique",
+  luxury:"Luxe",vip:"VIP",extrasTitle:"3. Options supplémentaires",
+  designLabel:"Design 3D",smartLabel:"Maison intelligente",
+  resultTitle:"4. Estimation du coût",baseLabel:"Coût des travaux",
+  extrasLabel:"Options supplémentaires",grandLabel:"Total estimé",
+  durationLabel:"Durée estimée :",days:"jours",
+  disclaimer:"Estimation indicative. La devise change l'affichage, pas les prix.",
+  whatsapp:"Envoyer le devis sur WhatsApp",print:"Imprimer / Enregistrer en PDF",
+  footerText:"Calculateur de finition",clientPlaceholder:"Nom du client",
+  phonePlaceholder:"Téléphone",estimate:"Devis DecoCost",
+  area:"Surface",plan:"Forfait",total:"Total",currency:"Devise",
+  required:"Veuillez saisir le nom et le téléphone.",
+  waClient:"Client",base:"Travaux",extras:"Options"
+ },
+ en:{
+  subtitle:"Finishing and interior design cost calculator",
+  projectTitle:"1. Project information",clientLabel:"Client name",
+  phoneLabel:"Phone number",areaLabel:"Apartment area",
+  packageTitle:"2. Finishing package",economy:"Economy",
+  luxury:"Luxury",vip:"VIP",extrasTitle:"3. Add-ons",
+  designLabel:"3D design",smartLabel:"Smart home setup",
+  resultTitle:"4. Cost estimate",baseLabel:"Finishing cost",
+  extrasLabel:"Add-ons",grandLabel:"Estimated total",
+  durationLabel:"Estimated duration:",days:"days",
+  disclaimer:"Estimate only. Currency changes the display, not the prices.",
+  whatsapp:"Send quote via WhatsApp",print:"Print / Save PDF",
+  footerText:"Finishing cost calculator",clientPlaceholder:"Client name",
+  phonePlaceholder:"Phone number",estimate:"DecoCost Quote",
+  area:"Area",plan:"Package",total:"Total",currency:"Currency",
+  required:"Please enter the client's name and phone number.",
+  waClient:"Client",base:"Finishing",extras:"Add-ons"
+ }
+};
+
+function currentPlan(){
+ return Number(document.querySelector('input[name="plan"]:checked').value);
+}
+function money(value){
+ const currency=$("currency").value;
+ return new Intl.NumberFormat(
+   $("lang").value==="en"?"en-US":
+   $("lang").value==="fr"?"fr-FR":"ar",
+   {maximumFractionDigits:0}
+ ).format(value)+" "+currency;
+}
+function calculate(){
+ const area=Number($("area").value);
+ const base=area*currentPlan();
+ const extras=($("design").checked?10000:0)+
+              ($("smart").checked?25000:0);
+ const total=base+extras;
+ $("areaNum").textContent=area;
+ $("base").textContent=money(base);
+ $("extras").textContent=money(extras);
+ $("grand").textContent=money(total);
+ $("duration").textContent=Math.ceil(area/10)+
+   " "+words[$("lang").value].days;
+}
+function translate(){
+ const lang=$("lang").value, t=words[lang];
+ document.documentElement.lang=lang;
+ document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+ Object.keys(t).forEach(key=>{
+   if($(key)) $(key).textContent=t[key];
+ });
+ $("client").placeholder=t.clientPlaceholder;
+ $("phone").placeholder=t.phonePlaceholder;
+ $("whatsapp").textContent=t.whatsapp;
+ $("print").textContent=t.print;
+ const planNames={
+  ar:["اقتصادية","فاخرة","VIP"],
+  fr:["Économique","Luxe","VIP"],
+  en:["Economy","Luxury","VIP"]
+ }[lang];
+ document.querySelectorAll('input[name="plan"]').forEach((el,i)=>{
+   const price=Number(el.value).toLocaleString();
+   el.nextElementSibling.textContent=
+    planNames[i]+" — "+price+" / m²";
+ });
+ calculate();
+}
+$("area").addEventListener("input",calculate);
+document.querySelectorAll('input[name="plan"],#design,#smart,#currency')
+ .forEach(el=>el.addEventListener("change",calculate));
+$("lang").addEventListener("change",translate);
+
+$("whatsapp").addEventListener("click",()=>{
+ const t=words[$("lang").value];
+ const client=$("client").value.trim();
+ const phone=$("phone").value.trim();
+ if(!client||!phone){alert(t.required);return;}
+ const plan=document.querySelector('input[name="plan"]:checked')
+  .nextElementSibling.textContent;
+ const message=[
+  t.estimate,
+  t.waClient+": "+client,
+  t.phoneLabel+": "+phone,
+  t.area+": "+$("area").value+" m²",
+  t.plan+": "+plan,
+  t.base+": "+$("base").textContent,
+  t.extras+": "+$("extras").textContent,
+  t.total+": "+$("grand").textContent
+ ].join("\n");
+ window.open("https://wa.me/"+phoneNumber+
+  "?text="+encodeURIComponent(message),"_blank");
+});
+$("print").addEventListener("click",()=>window.print());
+translate();
+</script>
+</body>
+</html>
